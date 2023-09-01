@@ -1,12 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from music.models import Song
 
 
 class CustomUser(AbstractUser):
-    ACCOUNT_TYPES = (("VIP", "VIP"), ("NORMAL", "Normal"))
-    account_type = models.CharField(
-        choices=ACCOUNT_TYPES, default="NORMAL", max_length=10
-    )
+    ACCOUNT_TYPES = (("V", "VIP"), ("N", "Normal"))
+    account_type = models.CharField(choices=ACCOUNT_TYPES, default="N", max_length=1)
     profile_image = models.ImageField(upload_to="users/", blank=True, null=True)
     additional_info = models.TextField(blank=True, null=True)
 
@@ -15,8 +14,9 @@ class CustomUser(AbstractUser):
 
 
 class Like(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    song = models.ForeignKey("music.Song", on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="likes")
+    song = models.ForeignKey(Song, on_delete=models.CASCADE, related_name="likes")
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ("user", "song")
@@ -26,10 +26,15 @@ class Like(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    song = models.ForeignKey("music.Song", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, related_name="comments"
+    )
+    song = models.ForeignKey(Song, on_delete=models.CASCADE, related_name="comments")
     text = models.TextField()
-    approved = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(
+        default=False,
+    )
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.song.title}"

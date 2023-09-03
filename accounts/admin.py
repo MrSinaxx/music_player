@@ -18,3 +18,12 @@ class LikeAdmin(admin.ModelAdmin):
     search_fields = ("user__username", "song__title")
     ordering = ("-timestamp",)
     date_hierarchy = "timestamp"
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("user", "song", "text", "timestamp", "approved")
+    list_filter = ("approved", "timestamp")
+    search_fields = ("user__username", "song__title", "text")
+    ordering = ("-timestamp",)
+    date_hierarchy = "timestamp"

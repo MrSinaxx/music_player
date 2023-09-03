@@ -23,3 +23,11 @@ class SongAdmin(admin.ModelAdmin):
     search_fields = ("title", "artists__name")
     ordering = ("-upload_date",)
     date_hierarchy = "upload_date"
+
+
+@admin.register(Playlist)
+class PlaylistAdmin(admin.ModelAdmin):
+    list_display = ("title", "owner", "description")
+    list_filter = ("owner",)
+    search_fields = ("title", "owner__username", "description")
+    ordering = ("title",)

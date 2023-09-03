@@ -14,3 +14,12 @@ class ArtistAdmin(admin.ModelAdmin):
     list_display = ("name", "bio")
     search_fields = ("name", "bio")
     ordering = ("name",)
+
+
+@admin.register(Song)
+class SongAdmin(admin.ModelAdmin):
+    list_display = ("title", "upload_date")
+    list_filter = ("upload_date", "artists", "genres")
+    search_fields = ("title", "artists__name")
+    ordering = ("-upload_date",)
+    date_hierarchy = "upload_date"

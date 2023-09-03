@@ -9,3 +9,12 @@ class CustomUserAdmin(admin.ModelAdmin):
     search_fields = ("username", "email", "first_name", "last_name")
     ordering = ("-date_joined",)
     date_hierarchy = "date_joined"
+
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ("user", "song", "timestamp")
+    list_filter = ("timestamp",)
+    search_fields = ("user__username", "song__title")
+    ordering = ("-timestamp",)
+    date_hierarchy = "timestamp"

@@ -1,7 +1,7 @@
 ! function($) {
     "use strict";
     var tpj = jQuery;
-    var revapi24; // Consider using or removing this variable
+    var revapi24; 
 		
     // Preloader
     jQuery(window).on("load", function() {
@@ -107,7 +107,7 @@ const songList = [
   {
     title: 'Bad Liar',
     artist: 'Selena Gomez',
-    `dur`ation: 215,
+    duration: 215,
     album: {
       title: 'Bad Liar',
       art: {

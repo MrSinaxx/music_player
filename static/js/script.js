@@ -15,17 +15,7 @@
 
 'use strict';
 
-/**
- * A music player ... cause why not.
- * Hotkeys:
- *   a - previous
- *   d / n - next
- *   s / p - play / pause
- *   e / r - repeat
- *   q - shuffle
- *
- * @author Holly Springsteen
- */
+
 
 const colors = {
   aqua: {
